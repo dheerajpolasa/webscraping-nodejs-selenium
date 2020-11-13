@@ -1,0 +1,30 @@
+<div>
+    <form action="/search" method="post" id="form">
+        <input type="text" name="input" placeholder="Enter input">
+        <input type="submit" name="submit" />
+    </form>
+</div>
+
+<div id="result">
+
+</div>
+
+<script>
+    let form = $('#form');
+    form.submit(function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            type: "post",
+            url: "/search",
+            data: form.serialize(),
+            success: function(data) {
+                console.log(data);
+                $('#result').empty();
+                $('#result').html(JSON.stringify(data, undefined, 4));
+            }, error: function(err) {
+                console.log(err.responseText());
+            }
+        })
+    })
+</script>
